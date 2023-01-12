@@ -27,6 +27,7 @@
     <spring.boot.maven.plugin.version>3.0.0</spring.boot.maven.plugin.version>
     <spring.boot.dependencies.version>3.0.0</spring.boot.dependencies.version>
     <spring.cloud.version>2022.0.0</spring.cloud.version>
+    <micrometer-tracing.version>1.0.1</micrometer-tracing.version>
   </properties>
 
   <dependencyManagement>
@@ -49,6 +50,13 @@
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-parent</artifactId>
         <version>2022.0.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-tracing-bom</artifactId>
+        <version>${micrometer-tracing.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
