@@ -1,8 +1,6 @@
 spring:
   application:
     name: eureka-server
-  zipkin:
-    base-url: http://localhost:9411
 
 server:
   port: 8761
@@ -11,4 +9,10 @@ eureka:
   client:
     allow-redirects: false
     register-with-eureka: false
+
+management:
+  tracing:
+    sampling:
+      # Trace every action
+      probability: 1.0
 

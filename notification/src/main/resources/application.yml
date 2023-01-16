@@ -15,8 +15,6 @@ spring:
                 dialect: org.hibernate.dialect.PostgreSQLDialect
                 format_sql: true
         show-sql: true
-    zipkin:
-        base-url: http://localhost:9411
 
 eureka:
     client:
@@ -24,4 +22,10 @@ eureka:
             defaultZone: http://localhost:8761/eureka
         fetch-registry: true
         register-with-eureka: true
+
+management:
+    tracing:
+        sampling:
+            # Trace every action
+            probability: 1.0
 
