@@ -1,8 +1,8 @@
 package com.xsakon.customer;
 
+import com.xsakon.amqp.RabbitMQMessageProducer;
 import com.xsakon.clients.fraud.FraudCheckResponse;
 import com.xsakon.clients.fraud.FraudClient;
-import com.xsakon.clients.notification.NotificationClient;
 import com.xsakon.clients.notification.NotificationRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,9 +12,8 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
-    private final NotificationClient notificationClient;
     private final FraudClient fraudClient;
-
+    private final RabbitMQMessageProducer rabbitMQMessageProducer;
 
     public  void registerCustomer(CustomerRegistrationRequest request){
 
@@ -39,14 +38,16 @@ public class CustomerService {
 
 
 
-        // todo: make it async. i.e add to queue
-        notificationClient.sendNotification(
-                new NotificationRequest(
-                        customer.getId(),
-                        customer.getEmail(),
-                        String.format("Hi %s, welcome to xsakon site...",
-                                customer.getFirstName())
-                )
+        NotificationRequest notificationRequest = new NotificationRequest(
+                customer.getId(),
+                customer.getEmail(),
+                String.format("Hi %s, welcome to xsakon's site", customer.getFirstName())
+        );
+
+        rabbitMQMessageProducer.publish(
+                "internal.exchange",
+                "internal.notification.routing-key",
+                notificationRequest
         );
 
     }
