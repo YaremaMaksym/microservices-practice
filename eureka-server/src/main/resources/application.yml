@@ -7,7 +7,7 @@ server:
 
 eureka:
   client:
-    allow-redirects: false
+    fetch-registry: false
     register-with-eureka: false
 
 management:
