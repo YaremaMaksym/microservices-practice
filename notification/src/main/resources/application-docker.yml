@@ -16,7 +16,7 @@ spring:
                 format_sql: true
         show-sql: true
     rabbitmq:
-        addresses: localhost:5672
+        addresses: rabbitmq:5672
 
 eureka:
     client:
